@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecm-kafka-service
+  labels:
+    name: ecm-kafka-service
+    app: ecm-smart-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8082
+    targetPort: 8082
+  selector:
+    name: ecm-kafka-service
+    app: ecm-smart-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecm-kafka-service
+  labels:
+    app: ecm-smart-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: ecm-kafka-service
+      app: ecm-smart-service
+  template:
+    metadata:
+      name: ecm-kafka-service
+      labels:
+        name: ecm-kafka-service
+        app: ecm-smart-service
+
+    spec:
+      containers:
+      - name: ecm-kafka-service
+        image: ecm-kafka-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8082

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer-deployment
+  labels:
+    app: ecm-smart-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: adminer-pod
+      app: ecm-smart-service
+  template:
+    metadata:
+      name: adminer-pod
+      labels:
+        name: adminer-pod
+        app: ecm-smart-service
+
+    spec:
+      containers:
+      - name: adminer
+        image: adminer
+        imagePullPolicy: IfNotPresent        
+            
+        ports:
+        - containerPort: 8080

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecm-eureka-discovery-service-deployment
+  labels:
+    app: ecm-smart-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: ecm-eureka-discovery-service-pod
+      app: ecm-smart-service
+  template:
+    metadata:
+      name: ecm-eureka-discovery-service-pod
+      labels:
+        name: ecm-eureka-discovery-service-pod
+        app: ecm-smart-service
+
+    spec:
+      containers:
+      - name: ecm-eureka-discovery-service
+        image: ecm-eureka-discovery-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8761

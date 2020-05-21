@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecm-eureka-discovery-service
+  labels:
+    name: ecm-eureka-discovery-service
+    app: ecm-smart-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8761
+    targetPort: 8761
+  selector:
+    name: ecm-eureka-discovery-service-pod
+    app: ecm-smart-service

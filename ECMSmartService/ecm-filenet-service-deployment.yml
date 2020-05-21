@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecm-filenet-service-deployment
+  labels:
+    app: ecm-smart-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: ecm-filenet-service-pod
+      app: ecm-smart-service
+  template:
+    metadata:
+      name: ecm-filenet-service-pod
+      labels:
+        name: ecm-filenet-service-pod
+        app: ecm-smart-service
+
+    spec:
+      containers:
+      - name: ecm-filenet-service
+        image: ecm-filenet-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081

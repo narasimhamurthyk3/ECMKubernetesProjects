@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper-1-deployment
+  labels:
+    app: ecm-smart-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: zookeeper-1-pod
+      app: ecm-smart-service
+  template:
+    metadata:
+      name: zookeeper-1-pod
+      labels:
+        name: zookeeper-1-pod
+        app: ecm-smart-service
+
+    spec:
+      containers:
+      - name: zookeeper-1
+        image: confluentinc/cp-zookeeper:latest
+        imagePullPolicy: IfNotPresent
+        env:      
+          - name: ZOOKEEPER_SERVER_ID
+            value: db
+          - name: MYSQL_USER
+            value: ecm
+          - name: MYSQL_PASSWORD
+            value: ecm@123
+          - name: MYSQL_ROOT_PASSWORD
+            value: root
+            
+            ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 12181
+      ZOOKEEPER_TICK_TIME: 2000
+      ZOOKEEPER_INIT_LIMIT: 1
+      ZOOKEEPER_SYNC_LIMIT: 1
+      ZOOKEEPER_SERVERS: zookeeper-1:12888:13888
+            
+        ports:
+        - containerPort: 3306

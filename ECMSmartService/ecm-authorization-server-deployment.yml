@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecm-authorization-server-deployment
+  labels:
+    app: ecm-smart-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: ecm-authorization-server-pod
+      app: ecm-smart-service
+  template:
+    metadata:
+      name: ecm-authorization-server-pod
+      labels:
+        name: ecm-authorization-server-pod
+        app: ecm-smart-service
+
+    spec:
+      containers:
+      - name: ecm-authorization-server
+        image: ecm-authorization-server
+        imagePullPolicy: IfNotPresent        
+            
+        ports:
+        - containerPort: 9000

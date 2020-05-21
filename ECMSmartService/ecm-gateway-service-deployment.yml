@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecm-gateway-service-deployment
+  labels:
+    app: ecm-smart-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: ecm-gateway-service-pod
+      app: ecm-smart-service
+  template:
+    metadata:
+      name: ecm-gateway-service-pod
+      labels:
+        name: ecm-gateway-service-pod
+        app: ecm-smart-service
+
+    spec:
+      containers:
+      - name: ecm-gateway-service
+        image: ecm-gateway-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080

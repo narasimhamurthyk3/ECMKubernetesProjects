@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecm-authorization-server
+  labels:
+    name: ecm-authorization-server
+    app: ecm-smart-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 9000
+    targetPort: 9000
+  selector:
+    name: ecm-authorization-server
+    app: ecm-smart-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecm-authorization-server
+  labels:
+    app: ecm-smart-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: ecm-authorization-server
+      app: ecm-smart-service
+  template:
+    metadata:
+      name: ecm-authorization-server
+      labels:
+        name: ecm-authorization-server
+        app: ecm-smart-service
+
+    spec:
+      containers:
+      - name: ecm-authorization-server
+        image: ecm-authorization-server
+        imagePullPolicy: IfNotPresent        
+            
+        ports:
+        - containerPort: 9000

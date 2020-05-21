@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecm-authorization-server
+  labels:
+    name: ecm-authorization-server
+    app: ecm-smart-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 9000
+    targetPort: 9000
+  selector:
+    name: ecm-authorization-server-pod
+    app: ecm-smart-service
